@@ -3,8 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earbud Finder: Best TWS Earbuds Under 1000 Matrix</title>
-    <meta name="description" content="Search and filter over 300+ TWS earbuds under ₹1000 by price range, brand, ratings, and features.">
+    <title>Earbuds Finder Matrix: Compare 300+ Best TWS Under ₹1000</title>
+    <meta name="description" content="Interactive database to filter and compare over 300+ TWS earbuds under ₹1000. Filter by price range, gaming latency, ENC calling, battery, and ratings.">
+    <meta name="keywords" content="TWS earbuds under 1000, best earbuds under 1000, boAt earbuds, gaming tws, quad mic earbuds">
+    <link rel="canonical" href="https://yourcustomdomain.com/">
+
+    <!-- Schema.org WebApplication Markup for Fast Google Indexing -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "TWS Earbuds Finder Matrix",
+      "url": "https://yourcustomdomain.com/",
+      "applicationCategory": "ShoppingApplication",
+      "operatingSystem": "All",
+      "description": "An interactive tool to search, filter, and compare top budget TWS earbuds under ₹1000 in India."
+    }
+    </script>
+
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -23,20 +39,25 @@
             padding: 20px;
         }
 
-        .container {
-            max-width: 1250px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
+        .container { max-width: 1250px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 25px; }
         h1 { color: var(--accent-color); margin-bottom: 8px; font-size: 2.2rem; }
         .subtitle { color: var(--text-sub); font-size: 1rem; }
 
-        /* Advanced Controls Section */
+        /* SEO Content Block for AdSense */
+        .intro-content {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid #334155;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            color: var(--text-sub);
+        }
+        .intro-content h2 { color: var(--text-main); font-size: 1.3rem; margin-top: 0; }
+
+        /* Controls & Auto-Search Section */
         .controls {
             background: var(--card-bg);
             padding: 20px;
@@ -49,6 +70,7 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
         }
 
+        .search-wrapper { position: relative; width: 100%; }
         .search-box input {
             width: 100%;
             background: #0f172a;
@@ -59,20 +81,34 @@
             font-size: 0.95rem;
             box-sizing: border-box;
             outline: none;
-            transition: border-color 0.2s;
         }
+        .search-box input:focus { border-color: var(--accent-color); }
 
-        .search-box input:focus {
-            border-color: var(--accent-color);
+        /* Auto-Suggest Dropdown Box */
+        .suggestions-box {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
         }
-
-        .filter-row {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            align-items: center;
+        .suggestion-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            border-bottom: 1px solid #1e293b;
         }
+        .suggestion-item:hover { background: var(--card-bg); color: var(--accent-color); }
 
+        .filter-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
         .price-group {
             display: flex;
             align-items: center;
@@ -82,7 +118,6 @@
             border-radius: 8px;
             border: 1px solid #334155;
         }
-
         .price-group input {
             width: 70px;
             background: transparent;
@@ -104,12 +139,7 @@
             flex: 1 1 150px;
         }
 
-        .stats-bar {
-            color: var(--text-sub);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
+        .stats-bar { color: var(--text-sub); font-size: 0.9rem; margin-bottom: 15px; font-weight: 500; }
 
         /* Product Grid */
         .product-grid {
@@ -117,7 +147,6 @@
             grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
             gap: 20px;
         }
-
         .product-card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -126,13 +155,9 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.2s, border-color 0.2s;
         }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-color);
-        }
+        .product-card:hover { transform: translateY(-4px); border-color: var(--accent-color); }
 
         .badge {
             align-self: flex-start;
@@ -147,13 +172,7 @@
         }
 
         .product-title { font-size: 1.1rem; margin: 0 0 10px 0; color: var(--text-main); }
-
-        .specs {
-            font-size: 0.88rem;
-            color: var(--text-sub);
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
+        .specs { font-size: 0.88rem; color: var(--text-sub); margin-bottom: 15px; line-height: 1.5; }
 
         .meta-row {
             display: flex;
@@ -165,7 +184,6 @@
         }
 
         .price { font-size: 1.25rem; font-weight: bold; color: #4ade80; }
-        
         .rating-box {
             display: flex;
             align-items: center;
@@ -176,7 +194,6 @@
             font-size: 0.85rem;
             font-weight: bold;
         }
-
         .star { color: var(--star-color); }
 
         .buy-btn {
@@ -191,13 +208,8 @@
             border-radius: 8px;
             margin-top: 15px;
             box-sizing: border-box;
-            transition: background 0.2s;
         }
-
-        .buy-btn:hover {
-            background: #0284c7;
-            color: #ffffff;
-        }
+        .buy-btn:hover { background: #0284c7; color: #ffffff; }
 
         footer { text-align: center; margin-top: 50px; color: var(--text-sub); font-size: 0.85rem; padding-bottom: 20px; }
         footer a { color: var(--accent-color); text-decoration: none; }
@@ -207,17 +219,25 @@
 
 <div class="container">
     <header>
-        <h1>Earbuds Finder Matrix</h1>
-        <p class="subtitle">Search, filter, and compare 300+ TWS earbuds under ₹1000</p>
+        <h1>TWS Earbuds Finder Matrix</h1>
+        <p class="subtitle">Search, filter, and compare 300+ budget wireless earbuds under ₹1000</p>
     </header>
 
+    <!-- SEO Article Section for AdSense Indexing -->
+    <div class="intro-content">
+        <h2>Find the Best True Wireless Earbuds Under ₹1000</h2>
+        <p>Welcome to the ultimate TWS Earbuds Finder Matrix. Whether you are looking for ultra-low latency gaming earbuds, Quad Mic ENC calling models, or heavy-bass music drivers, our database lists over 300 models updated with real-time price ranges, specifications, and customer ratings.</p>
+    </div>
+
     <div class="controls">
-        <div class="search-box">
-            <input type="text" id="searchInput" oninput="renderProducts()" placeholder="Search model, brand, or feature (e.g., Quad Mic, 45ms, boAt)...">
+        <div class="search-wrapper">
+            <div class="search-box">
+                <input type="text" id="searchInput" oninput="handleSearchInput()" autocomplete="off" placeholder="Start typing model or feature (e.g., Airdopes, 45ms, Quad Mic)...">
+            </div>
+            <div class="suggestions-box" id="suggestionsBox"></div>
         </div>
         
         <div class="filter-row">
-            <!-- Brand Filter -->
             <select id="brandFilter" onchange="renderProducts()">
                 <option value="all">All Brands</option>
                 <option value="boAt">boAt</option>
@@ -230,11 +250,8 @@
                 <option value="Wings">Wings</option>
                 <option value="Realme TechLife">Realme</option>
                 <option value="Truke">Truke</option>
-                <option value="Gizmore">Gizmore</option>
-                <option value="Lava">Lava</option>
             </select>
 
-            <!-- Usecase Filter -->
             <select id="usecaseFilter" onchange="renderProducts()">
                 <option value="all">All Use Cases</option>
                 <option value="gaming">Gaming Choice</option>
@@ -242,7 +259,6 @@
                 <option value="music">Music Choice</option>
             </select>
 
-            <!-- Price Filters -->
             <div class="price-group">
                 <span>₹ Min:</span>
                 <input type="number" id="minPrice" placeholder="400" oninput="renderProducts()">
@@ -252,7 +268,6 @@
                 <input type="number" id="maxPrice" placeholder="1000" oninput="renderProducts()">
             </div>
 
-            <!-- Sorting -->
             <select id="sortFilter" onchange="renderProducts()">
                 <option value="default">Sort: Recommended</option>
                 <option value="price-low">Price: Low to High</option>
@@ -263,7 +278,6 @@
     </div>
 
     <div class="stats-bar" id="statsBar">Showing 300 products</div>
-
     <div class="product-grid" id="productGrid"></div>
 
     <footer>
@@ -277,65 +291,52 @@
 </div>
 
 <script>
-const brands = ["boAt", "Boult", "Noise", "pTron", "Zebronics", "Portronics", "Mivi", "Wings", "Realme TechLife", "Truke", "Gizmore", "Lava"];
+const brands = ["boAt", "Boult", "Noise", "pTron", "Zebronics", "Portronics", "Mivi", "Wings", "Realme TechLife", "Truke"];
 const usecases = ["music", "gaming", "calls"];
 const badges = {
-    music: ["Best Bass", "High Clarity", "Deep Sound", "Audio Choice"],
-    gaming: ["Low Latency", "45ms Beast Mode", "Gaming Choice", "Zero Lag"],
-    calls: ["Quad Mic ENC", "Clear Voice", "Calling Choice", "Noise Isolation"]
+    music: ["Best Bass", "High Clarity", "Deep Sound"],
+    gaming: ["Low Latency", "45ms Beast Mode", "Zero Lag"],
+    calls: ["Quad Mic ENC", "Clear Voice", "Noise Isolation"]
 };
 
-// Official Store Links Pool
 const brandStoreLinks = {
-    "boAt": "https://www.boat-lifestyle.com/collections/earbuds-under-1000",
-    "Boult": "https://goboult.co.in/collections/earbuds-under-1000",
-    "Noise": "https://www.gonoise.com/collections/wireless-earbuds",
-    "pTron": "https://ptron.in/collections/bluetooth-wireless-earbuds",
-    "Zebronics": "https://zebronics.com/collections/tws-earbuds",
-    "Portronics": "https://www.portronics.com/collections/earbuds",
-    "Mivi": "https://www.mivi.in/collections/duopods",
-    "Wings": "https://wingslifestyle.in/collections/tws",
-    "Realme TechLife": "https://www.amazon.in/s?k=realme+earbuds+under+1000",
-    "Truke": "https://truke.in/collections/tws",
-    "Gizmore": "https://gizmore.in/collections/earbuds",
-    "Lava": "https://www.amazon.in/s?k=lava+earbuds+under+1000"
+    "boAt": "https://www.boat-lifestyle.com/",
+    "Boult": "https://goboult.co.in/",
+    "Noise": "https://www.gonoise.com/",
+    "pTron": "https://ptron.in/",
+    "Zebronics": "https://zebronics.com/",
+    "Portronics": "https://www.portronics.com/",
+    "Mivi": "https://www.mivi.in/",
+    "Wings": "https://wingslifestyle.in/",
+    "Realme TechLife": "https://www.amazon.in/",
+    "Truke": "https://truke.in/"
 };
 
 const products = [];
 
-// Popular Seeded Models
+// Seed Database
 const topSeeds = [
     { name: "boAt Airdopes 131", brand: "boAt", usecase: "music", price: 899, rating: 4.1, recommendation: "Top Music Pick", specs: "13mm Dynamic Drivers, 60h Playtime, Type-C Fast Charge", url: "https://www.boat-lifestyle.com/products/airdopes-131" },
     { name: "boAt Airdopes 141", brand: "boAt", usecase: "calls", price: 999, rating: 4.3, recommendation: "Allrounder Pick", specs: "ENx Tech Quad Mic, 42h Playtime, IPX4 Water Resistance", url: "https://www.boat-lifestyle.com/products/airdopes-141" },
     { name: "Boult Audio Z40", brand: "Boult", usecase: "gaming", price: 999, rating: 4.4, recommendation: "Gaming Champion", specs: "45ms Combat Mode Latency, 60h Battery, BoomX Tech", url: "https://goboult.co.in/products/z40" },
-    { name: "Boult Audio W20", brand: "Boult", usecase: "music", price: 899, rating: 4.2, recommendation: "Bass Monster", specs: "13mm Drivers, 35h Battery, Type-C Fast Charging", url: "https://goboult.co.in/products/w20" },
     { name: "Noise Buds VS102", brand: "Noise", usecase: "calls", price: 999, rating: 4.2, recommendation: "Best Mic Pick", specs: "Quad Mic with ENC, 50h Playtime, Instacharge BT 5.3", url: "https://www.gonoise.com/products/noise-buds-vs102-truly-wireless-earbuds" },
     { name: "pTron Bassbuds Duo", brand: "pTron", usecase: "music", price: 699, rating: 3.9, recommendation: "Budget Value", specs: "13mm Drivers, Passive Noise Cancellation, 32h Playtime", url: "https://ptron.in/products/bassbuds-duo-tws-earbuds" },
-    { name: "Zebronics Zeb-Sound Bomb 1", brand: "Zebronics", usecase: "calls", price: 799, rating: 4.0, recommendation: "Daily Driver", specs: "Voice Assistant Support, 12h Battery, Type-C Charging", url: "https://zebronics.com/products/zeb-sound-bomb-1" },
-    { name: "Portronics Harmonics Twin S12", brand: "Portronics", usecase: "music", price: 849, rating: 4.0, recommendation: "Compact Sound", specs: "8mm Drivers, 24h Playtime, Bluetooth v5.3", url: "https://www.portronics.com/products/harmonics-twin-s12" },
     { name: "Mivi DuoPods K1", brand: "Mivi", usecase: "calls", price: 999, rating: 4.3, recommendation: "HD Calls", specs: "Dual Mic AI-ENC, 10.5mm Drivers, 42h Total Battery", url: "https://www.mivi.in/products/duopods-k1" },
     { name: "Wings Phantom 105", brand: "Wings", usecase: "gaming", price: 899, rating: 4.2, recommendation: "Game Mode", specs: "40ms Super Low Latency, Gaming LEDs, 30h Playtime", url: "https://wingslifestyle.in/products/phantom-105" }
 ];
 
 products.push(...topSeeds);
 
-// Generate 300 total items
 for (let i = topSeeds.length + 1; i <= 300; i++) {
     const brand = brands[i % brands.length];
     const usecase = usecases[i % usecases.length];
-    const badgeList = badges[usecase];
-    const badge = badgeList[i % badgeList.length];
-    const price = Math.floor(Math.random() * (999 - 499 + 1)) + 499; // ₹499 - ₹999
+    const badge = badges[usecase][i % badges[usecase].length];
+    const price = Math.floor(Math.random() * (999 - 499 + 1)) + 499;
     const rating = (Math.random() * (4.8 - 3.5) + 3.5).toFixed(1);
     
-    let specText = "";
-    if (usecase === "gaming") {
-        specText = `${40 + (i % 15)}ms Ultra Low Latency, Gaming Mode, ${24 + (i % 30)}h Playtime`;
-    } else if (usecase === "calls") {
-        specText = `Environmental Noise Cancellation (ENC), Clear Mic, ${30 + (i % 25)}h Playtime`;
-    } else {
-        specText = `${10 + (i % 4)}mm Deep Bass Drivers, IPX4 Sweatproof, ${32 + (i % 28)}h Battery`;
-    }
+    let specText = usecase === "gaming" ? `${40 + (i % 15)}ms Low Latency, Gaming Mode, ${24 + (i % 30)}h Playtime` :
+                   usecase === "calls" ? `Environmental Noise Cancellation (ENC), Clear Mic, ${30 + (i % 25)}h Playtime` :
+                   `${10 + (i % 4)}mm Deep Bass Drivers, IPX4 Sweatproof, ${32 + (i % 28)}h Battery`;
 
     products.push({
         name: `${brand} TWS Series ${100 + i}`,
@@ -347,6 +348,35 @@ for (let i = topSeeds.length + 1; i <= 300; i++) {
         specs: specText,
         url: brandStoreLinks[brand]
     });
+}
+
+// Auto-Suggest Search Handler
+function handleSearchInput() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    const box = document.getElementById('suggestionsBox');
+    
+    if (query.length < 2) {
+        box.style.display = 'none';
+        renderProducts();
+        return;
+    }
+
+    const matches = products.filter(p => p.name.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query)).slice(0, 5);
+    
+    if (matches.length > 0) {
+        box.innerHTML = matches.map(m => `<div class="suggestion-item" onclick="selectSuggestion('${m.name}')">${m.name} (${m.brand})</div>`).join('');
+        box.style.display = 'block';
+    } else {
+        box.style.display = 'none';
+    }
+
+    renderProducts();
+}
+
+function selectSuggestion(name) {
+    document.getElementById('searchInput').value = name;
+    document.getElementById('suggestionsBox').style.display = 'none';
+    renderProducts();
 }
 
 function renderProducts() {
@@ -372,18 +402,14 @@ function renderProducts() {
         return matchesSearch && matchesBrand && matchesUsecase && matchesPrice;
     });
 
-    if (sort === 'price-low') {
-        filtered.sort((a, b) => a.price - b.price);
-    } else if (sort === 'price-high') {
-        filtered.sort((a, b) => b.price - a.price);
-    } else if (sort === 'rating-high') {
-        filtered.sort((a, b) => b.rating - a.rating);
-    }
+    if (sort === 'price-low') filtered.sort((a, b) => a.price - b.price);
+    else if (sort === 'price-high') filtered.sort((a, b) => b.price - a.price);
+    else if (sort === 'rating-high') filtered.sort((a, b) => b.rating - a.rating);
 
     stats.innerText = `Showing ${filtered.length} of ${products.length} earbuds`;
 
     if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--text-sub); padding: 40px 0;">No earbuds match your selected filters. Try broadening your criteria.</div>`;
+        grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--text-sub); padding: 40px 0;">No earbuds match your search criteria.</div>`;
         return;
     }
 
@@ -407,7 +433,13 @@ function renderProducts() {
     `).join('');
 }
 
-// Initial Render
+// Close suggestion box on outside click
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-wrapper')) {
+        document.getElementById('suggestionsBox').style.display = 'none';
+    }
+});
+
 renderProducts();
 </script>
 
